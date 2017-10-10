@@ -6,6 +6,7 @@ import org.bson.BsonString;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 
+import auxiliares.Utilidades;
 import modelo.Usuario;
 
 public class DAOUsuario {
@@ -13,7 +14,9 @@ public class DAOUsuario {
 	public static void insert(Usuario usuario) {
 		BsonDocument bso=new BsonDocument();
 		bso.append("nombre", new BsonString(usuario.getNombre()));
-		bso.append("pwd", new BsonString("1234"));
+		String pwd1="1234";
+		String pwdencriptada=Utilidades.Encriptar(pwd1);
+		bso.append("pwd", new BsonString(pwdencriptada));
 		
 		
 		MongoBroker broker= MongoBroker.get();
@@ -25,7 +28,8 @@ public class DAOUsuario {
 	public static void insertUserConPWD(Usuario usuario, String pwd) {
 		BsonDocument bso=new BsonDocument();
 		bso.append("nombre", new BsonString(usuario.getNombre()));
-		bso.append("pwd", new BsonString(pwd));
+		String pwdencriptada=Utilidades.Encriptar(pwd);
+		bso.append("pwd", new BsonString(pwdencriptada));
 		
 		
 		MongoBroker broker= MongoBroker.get();
@@ -44,7 +48,8 @@ public class DAOUsuario {
 		
 		BsonDocument bso2=new BsonDocument();
 		bso2.append("nombre", new BsonString(usuario.getNombre()));
-		bso2.append("pwd", new BsonString(pwd));
+		String pwdencriptada=Utilidades.Encriptar(pwd);
+		bso2.append("pwd", new BsonString(pwdencriptada));
 		
 	
 		usuarios.insertOne(bso2);
@@ -56,7 +61,8 @@ public class DAOUsuario {
 		MongoCollection<BsonDocument> usuarios=broker.getCollection("Usuarios");
 		BsonDocument criterio=new BsonDocument();
 		criterio.append("nombre", new BsonString(nombre));
-		criterio.append("pwd", new BsonString(pwd));
+		String pwdencriptada=Utilidades.Encriptar(pwd);
+		criterio.append("pwd", new BsonString(pwdencriptada));
 		FindIterable<BsonDocument> resultado=usuarios.find(criterio);
 		BsonDocument usuario=resultado.first();
 		if(usuario==null){
