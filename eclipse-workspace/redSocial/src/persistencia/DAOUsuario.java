@@ -126,13 +126,13 @@ public class DAOUsuario {
 	}
 	
 	public static void delete(Usuario usuario) {
-		/*BsonDocument bso=new BsonDocument();
-		bso.append("nombre", new BsonString(usuario.getNombre()));
+		Document bso=new Document();
+		bso.append("nombre", usuario.getNombre());
 		
 		MongoBroker broker= MongoBroker.get();
-		MongoCollection<BsonDocument>usuarios=broker.getCollection("Usuarios");
+		MongoCollection<Document>usuarios=broker.getCollection("Usuarios");
 		usuarios.deleteOne(bso);
-		*/
+		
 	}
 	
 
