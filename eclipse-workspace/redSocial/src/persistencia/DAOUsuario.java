@@ -123,8 +123,6 @@ public class DAOUsuario {
 		}
 		
 		return result;
-		
-		
 	}
 	
 	public static void delete(Usuario usuario) {

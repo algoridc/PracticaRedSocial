@@ -89,8 +89,7 @@ public class UsuarioServlet {//eo
 	 result=DAOUsuario.selectEmail(email);
 	 
 	 if (result=="ko") {
-		 
-
+		
 			Usuario user = DAOUsuario.selectSinPWD(email);
 			SendMail send = new SendMail();
 			send.sendMail(user.getDireccion(), Utilidades.Desencriptar(user.getPwd()));
