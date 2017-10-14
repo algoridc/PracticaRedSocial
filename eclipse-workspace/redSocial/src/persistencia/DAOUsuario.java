@@ -89,18 +89,21 @@ public class DAOUsuario {
 		return result;
 	}
 	
-	public static Usuario selectSinPWD(String nombre) throws Exception {
-		/*MongoBroker broker = MongoBroker.get();
-		MongoCollection<BsonDocument> usuarios=broker.getCollection("Usuarios");
-		BsonDocument criterio=new BsonDocument();
-		criterio.append("nombre", new BsonString(nombre));
+	public static Usuario selectSinPWD(String email) throws Exception {
+		MongoBroker broker = MongoBroker.get();
+		MongoCollection<Document> usuarios=broker.getCollection("Usuarios");
+		Document criterio=new Document();
+		criterio.append("email", email);
 		
-		FindIterable<BsonDocument> resultado=usuarios.find(criterio);
-		BsonDocument usuario=resultado.first();
-		Usuario result= new Usuario(nombre);
+		FindIterable<Document> resultado=usuarios.find(criterio);
+		Document usuario=resultado.first();
+		Usuario result=null;
+		if (usuario!=null) {
+			result = new Usuario (usuario.getString("nombre"), usuario.getString("email"), usuario.getString("pwd"));
+		}
+		
 		return result;
-		*/
-		throw new Exception("credenciales incorrectas");
+		
 	}
 	
 	public static String selectEmail(String email) {

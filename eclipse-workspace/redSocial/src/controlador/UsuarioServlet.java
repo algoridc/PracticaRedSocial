@@ -2,14 +2,18 @@ package controlador;
 
 import java.io.IOException;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import auxiliares.SendMail;
+import auxiliares.Utilidades;
 import modelo.Usuario;
 import persistencia.DAOUsuario;
 
@@ -28,7 +32,6 @@ public class UsuarioServlet {//eo
 	 String name = request.getParameter("username");
 	 String email = request.getParameter("email");
 	 String password = request.getParameter("password");
-	 String confirmPassword = request.getParameter("confirm-password");
 	 
 	 Usuario user = new Usuario(name, email, password);
 	 Usuario usuario = DAOUsuario.insertUserConPWD(user, password);
@@ -76,5 +79,23 @@ public class UsuarioServlet {//eo
 	 }
 	
 	response.getWriter().print(json);
+ }
+ 
+ @RequestMapping("forgotpassword.do")
+ public void forgotpassword(HttpServletRequest request,HttpServletResponse response) throws JSONException, Exception {
+	
+	 String email = request.getParameter("email");
+	 String result ="";
+	 result=DAOUsuario.selectEmail(email);
+	 
+	 if (result=="ko") {
+		 
+
+			Usuario user = DAOUsuario.selectSinPWD(email);
+			SendMail send = new SendMail();
+			send.sendMail(user.getDireccion(), Utilidades.Desencriptar(user.getPwd()));
+			response.sendRedirect("index.html");
+	 }
+
  }
 }

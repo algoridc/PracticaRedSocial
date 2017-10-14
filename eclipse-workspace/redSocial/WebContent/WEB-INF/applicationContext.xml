@@ -18,5 +18,5 @@
 	<!-- Configures the @controller programming model -->
 	
    <bean id = "usuarioDAO" class = "persistencia.DAOUsuario"></bean>
-
+   
 </beans>
