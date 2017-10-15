@@ -1,5 +1,8 @@
 package persistencia;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.bson.Document;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +16,10 @@ import modelo.Usuario;
 @Component
 public class DAOUsuario {
 
+    private List lista = new LinkedList();
+    
 	public static void insert(Usuario usuario) {
-	/*	BsonDocument bso=new BsonDocument();
+	/**	BsonDocument bso=new BsonDocument();
 		bso.append("nombre", new BsonString(usuario.getNombre()));
 		String pwd1="1234";
 		String pwdencriptada=Utilidades.Encriptar(pwd1);
@@ -29,7 +34,9 @@ public class DAOUsuario {
 	
 	public static Usuario insertUserConPWD(Usuario usuario, String pwd) {
 		
+		
 		Document bso=new Document();
+		
 		bso.put("nombre", usuario.getNombre());
 		String pwdencriptada=Utilidades.Encriptar(pwd);
 		bso.append("pwd", pwdencriptada);

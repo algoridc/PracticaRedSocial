@@ -77,8 +77,15 @@ $( document ).ready(function() {
 						var json = JSON.parse(data);
 						if(json.status=='ok'){
 							//GUARDAR EL NOMBRE Y EMAIL EN LOCALSTORAGE
+							//localStorage.setItem("name", json.name);
+							//localStorage.setItem("email", json.mail);
+							//localStorage.setItem("status", json.status);
+							sessionStorage.setItem("name", json.name);
+							sessionStorage.setItem("email", json.mail);
+							sessionStorage.setItem("status", json.status);
 							// REDIRECCIÓN AL MURO.
-							alert("Entra al muro!");
+							location.href ="wall.jsp";
+							
 						}else{
 							alert(json.message);
 						}
@@ -98,8 +105,15 @@ $( document ).ready(function() {
 			var json = JSON.parse(data);
 			if(json.status=='ok'){
 				//GUARDAR EL NOMBRE Y EMAIL EN LOCALSTORAGE
+				//localStorage.setItem("name", json.name);
+				//localStorage.setItem("email", json.email);
+				//localStorage.setItem("status", json.status);
+				sessionStorage.setItem("name", json.name);
+				sessionStorage.setItem("email", json.email);
+				sessionStorage.setItem("status", json.status);
+				
 				// REDIRECCIÓN AL MURO.
-				alert("Entra al muro!");
+				location.href ="wall.jsp";
 			}else{
 				alert(json.message);
 			}
