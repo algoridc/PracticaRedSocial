@@ -15,6 +15,13 @@ $( document ).ready(function() {
 		document.getElementById("infoUser").innerHTML = "Bienvenido "+_name+"!!";
 		
 	});
+	$('#logOut').click(function(){
+		//borro la sesion
+		sessionStorage.clear();
+		//vuelvo al inicio
+		location.href ="index.html";
+		
+	});
 	
 	
 });

@@ -31,7 +31,7 @@
   <li><a href="#">Ayuda</a></li>
   <li><a href="#">Acerca de...</a></li>   
   <li class="divider"></li> 
-  <li><a href="#">Salir</a></li> 
+  <li><a href="#" id="logOut">Salir</a></li> 
  </ul> 
  </li> 
 
