@@ -1,11 +1,6 @@
+var tab=1;
 $( document ).ready(function() {
 	$(function() {
-		
-		//evitar posibles errores en la informacion guardada con anterioridad
-		sessionStorage.clear();
-		localStorage.clear();
-		
-		//function()
 
 	    $('#login-form-link').click(function(e) {
 	    	$("#login-form").delay(100).fadeIn(100);
@@ -48,7 +43,7 @@ $( document ).ready(function() {
 	});
 	
 	$( "#password-register" ).keyup(function() {
-		 
+		$('.error-list').show();
 		var password1 = $("#password-register").val();
 		var password2 = $("#confirm-password").val();
 		
@@ -68,6 +63,66 @@ $( document ).ready(function() {
 	    };
 	});
 	
+	$(document).keypress(function (e){
+		if(e.which == 13){
+			if (tab==1){
+				var email = $('#email').val();
+				var pwd = $('#password').val();
+				$.post( "login.do",{ email: email, password: pwd}, function( data ) {
+					var json = JSON.parse(data);
+					if(json.status=='ok'){
+						//GUARDAR EL NOMBRE Y EMAIL EN LOCALSTORAGE
+						sessionStorage.setItem("name", json.name);
+						sessionStorage.setItem("email", json.email);
+						sessionStorage.setItem("status", json.status);
+						
+						// REDIRECCIÓN AL MURO.
+						location.href ="wall.jsp";
+					}else{
+						alert(json.message);
+					}
+				});
+			}else if(tab==2){
+				var email = $('#email-register').val();
+				var username = $('#username').val();
+				var password = $('#password-register').val();
+				var password2 = $('#confirm-password').val();
+				$.post( "consultar.do",{ email: email }, function( data ) {
+					 if(data=='ok'){
+						 
+						 if (email=='' || username==''){
+							 alert("No puedes dejar vacio el usuario o la contraseña");
+						 }else{
+							 $.post( "registro.do",
+									 { email: email, password: password , username:username, 'confirm-password': password2}, 
+									 
+								function( data ) {
+									var json = JSON.parse(data);
+									if(json.status=='ok'){
+										//GUARDAR EL NOMBRE Y EMAIL EN LOCALSTORAGE
+										sessionStorage.setItem("name", json.name);
+										sessionStorage.setItem("email", json.mail);
+										sessionStorage.setItem("status", json.status);
+										// REDIRECCIÓN AL MURO.
+										location.href ="wall.jsp";
+										
+									}else{
+										alert(json.message);
+									}
+								});
+						 }
+					 }else{
+						 $("#email-register").css('border-color', 'red');
+						 $("#error-email").css("color","red");
+						 $("#error-email").text("Correo electrónico en uso");
+					 }
+				});
+			}
+		
+		}
+	});
+	
+	
 	$('#register-submit').click(function(){
 		
 		var email = $('#email-register').val();
@@ -76,26 +131,28 @@ $( document ).ready(function() {
 		var password2 = $('#confirm-password').val();
 		$.post( "consultar.do",{ email: email }, function( data ) {
 			 if(data=='ok'){
-				 $.post( "registro.do",
-						 { email: email, password: password , username:username, 'confirm-password': password2}, 
-						 
-					function( data ) {
-						var json = JSON.parse(data);
-						if(json.status=='ok'){
-							//GUARDAR EL NOMBRE Y EMAIL EN LOCALSTORAGE
-							//localStorage.setItem("name", json.name);
-							//localStorage.setItem("email", json.mail);
-							//localStorage.setItem("status", json.status);
-							sessionStorage.setItem("name", json.name);
-							sessionStorage.setItem("email", json.mail);
-							sessionStorage.setItem("status", json.status);
-							// REDIRECCIÓN AL MURO.
-							location.href ="wall.jsp";
-							
-						}else{
-							alert(json.message);
-						}
-					});
+				 
+				 if (email=='' || username==''){
+					 alert("No puedes dejar vacio el usuario o la contraseña");
+				 }else{
+					 $.post( "registro.do",
+							 { email: email, password: password , username:username, 'confirm-password': password2}, 
+							 
+						function( data ) {
+							var json = JSON.parse(data);
+							if(json.status=='ok'){
+								//GUARDAR EL NOMBRE Y EMAIL EN LOCALSTORAGE
+								sessionStorage.setItem("name", json.name);
+								sessionStorage.setItem("email", json.mail);
+								sessionStorage.setItem("status", json.status);
+								// REDIRECCIÓN AL MURO.
+								location.href ="wall.jsp";
+								
+							}else{
+								alert(json.message);
+							}
+						});
+				 }
 			 }else{
 				 $("#email-register").css('border-color', 'red');
 				 $("#error-email").css("color","red");
@@ -104,17 +161,18 @@ $( document ).ready(function() {
 		});
 	})
 	
+	$('#password').keyup(function(){
+		$('.error-list').hide();
+	})
+	
 	$('#login-submit').click(function(){
 		var email = $('#email').val();
 		var pwd = $('#password').val();
 		$.post( "login.do",{ email: email, password: pwd}, function( data ) {
 			var json = JSON.parse(data);
 			if(json.status=='ok'){
-				
 				//GUARDAR EL NOMBRE Y EMAIL EN LOCALSTORAGE
-				//localStorage.setItem("name", json.name);
-				//localStorage.setItem("email", json.email);
-				//localStorage.setItem("status", json.status);
+
 				sessionStorage.setItem("name", json.name);
 				sessionStorage.setItem("email", json.email);
 				sessionStorage.setItem("status", json.status);

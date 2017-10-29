@@ -1,5 +1,13 @@
 package modelo;
 
+import org.bson.Document;
+
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+
+import persistencia.DAOUsuario;
+import persistencia.MongoBroker;
+
 public class Usuario {
 	
 	private String nombre;
@@ -44,6 +52,24 @@ public class Usuario {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
+	
+	//Metodos DAO//////////////////////////////////////////////////////////
+	public Usuario select() {
+		return DAOUsuario.select(this);
+	}
+	public Usuario insert() {
+		return DAOUsuario.insert(this);
+		
+	}
+	public boolean update() {
+		return DAOUsuario.update(this);
+	}
+	public boolean delete() {
+		return DAOUsuario.delete(this);
+		
+	}
+	
+	
 
 	@Override
 	public String toString() {

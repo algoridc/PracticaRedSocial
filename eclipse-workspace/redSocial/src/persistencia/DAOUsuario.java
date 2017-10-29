@@ -16,22 +16,7 @@ import modelo.Usuario;
 @Component
 public class DAOUsuario {
 
-    private List lista = new LinkedList();
-    
-	public static void insert(Usuario usuario) {
-	/**	BsonDocument bso=new BsonDocument();
-		bso.append("nombre", new BsonString(usuario.getNombre()));
-		String pwd1="1234";
-		String pwdencriptada=Utilidades.Encriptar(pwd1);
-		bso.append("pwd", new BsonString(pwdencriptada));
-		
-		
-		MongoBroker broker= MongoBroker.get();
-		MongoCollection<BsonDocument>usuarios=broker.getCollection("Usuarios");
-		usuarios.insertOne(bso);
-		*/
-	}
-	
+
 	public static Usuario insertUserConPWD(Usuario usuario, String pwd) {
 		
 		
@@ -132,13 +117,71 @@ public class DAOUsuario {
 		return result;
 	}
 	
-	public static void delete(Usuario usuario) {
+	/**Usuario select(Usuario user)
+	 * @param user
+	 * @return
+	 * Este metodo selecciona en funcion del mail
+	 */
+	public static Usuario select(Usuario user) {
+		
+		Usuario result=null;
+		MongoBroker broker = MongoBroker.get();
+		MongoCollection<Document> usuarios=broker.getCollection("Usuarios");
+		Document criterio=new Document();
+		criterio.append("email", user.getDireccion());
+		
+		FindIterable<Document> resultado=usuarios.find(criterio);
+		Document usuario=resultado.first();
+
+		if (usuario!=null) {
+			result = new Usuario (usuario.getString("nombre"), usuario.getString("email"), usuario.getString("pwd"));
+		}
+		
+		return result;
+		
+	}
+	public static Usuario insert(Usuario usuario) {
+		
 		Document bso=new Document();
-		bso.append("nombre", usuario.getNombre());
+		
+		bso.put("nombre", usuario.getNombre());
+		bso.append("pwd", usuario.getPwd());
+		bso.append("email", usuario.getDireccion());
 		
 		MongoBroker broker= MongoBroker.get();
 		MongoCollection<Document>usuarios=broker.getCollection("Usuarios");
-		usuarios.deleteOne(bso);
+		usuarios.insertOne(bso);
+		
+		return DAOUsuario.select(usuario);
+		
+	}
+	/**boolean update(Usuario useuario)
+	 * @param usuario
+	 * @return
+	 * Este metodo actualiza en funcion del mail
+	 */	
+
+	public static boolean update(Usuario usuario) {
+		return delete(usuario) && insert(usuario)!=null;
+	}
+	/**boolean delete(Usuario useuario)
+	 * @param usuario
+	 * @return
+	 * Este metodo elimina en funcion del mail
+	 */
+	public static boolean delete(Usuario usuario) {
+		try {
+			Document bso=new Document();
+			bso.append("email", usuario.getDireccion());
+		
+			MongoBroker broker= MongoBroker.get();
+			MongoCollection<Document>usuarios=broker.getCollection("Usuarios");
+			usuarios.deleteOne(bso);
+			return true;
+		
+		}catch(Exception e) {
+			return false;
+		}
 		
 	}
 	

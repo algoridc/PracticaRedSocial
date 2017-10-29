@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -22,14 +21,14 @@
    <div class="collapse navbar-collapse navbar-ex1-collapse"> 
  <ul class="nav navbar-nav"> 
     <li><a href="#"><span class="glyphicon glyphiconuser"></span> Inicio</a></li> 
-    <li><a href="#"><span class="glyphicon glyphiconuser" id=menuMensajes></span> Mensajes</a></li> 
+    <li><a href="#"><span class="glyphicon glyphiconuser"></span> Mensajes</a></li> 
  <li class="dropdown"> 
    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Menú <b class="caret"></b></a> 
  <ul class="dropdown-menu"> 
-  <li><a href="#" id=menuNombre>Usuario</a></li> 
+  <li><a href="#" id="menuNombre">Usuario</a></li> 
   <li class="divider"></li> 
-  <li><a href="#" id=menuConfiguracion>Configuración</a></li>
-  <li><a href="#" >Ayuda</a></li>
+  <li><a href="#" id="menuConfiguracion">Configuración</a></li>
+  <li><a href="#">Ayuda</a></li>
   <li><a href="#">Acerca de...</a></li>   
   <li class="divider"></li> 
   <li><a href="#" id="logOut">Salir</a></li> 

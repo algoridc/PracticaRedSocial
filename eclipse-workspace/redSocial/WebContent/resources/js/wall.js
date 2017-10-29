@@ -21,23 +21,23 @@ $( document ).ready(function() {
 	});
 	$('#menuInicio').click(function(){
 		//ACCESO AL PANEL DE INICIO
-		$.post( "wall.do",{ value: "i" }, function( data ) {});
+		//$.post( "wall.do",{ value: "i" }, function( data ) {});
 		
 	});
 	$('#menuMensajes').click(function(){
 		//ACCESO AL PANEL DE MENSAJES
-		$.post( "wall.do",{ value: "m" }, function( data ) {});
+		//$.post( "wall.do",{ value: "m" }, function( data ) {});
 		
 	});
 	$('#menuNombre').click(function(){
 		//ACCESO AL PANEL DE USUARIO
-		$.post( "wall.do",{ value: "u" }, function( data ) {});
+		location.href ="edit.jsp";
 		
 		
 	});
 	$('#menuConfiguracion').click(function(){
 		//ACCESO AL PANEL DE CONFIGURACION
-		$.post( "wall.do",{ value: "c" }, function( data ) {});
+		location.href ="edit.jsp";
 		
 		
 	});
