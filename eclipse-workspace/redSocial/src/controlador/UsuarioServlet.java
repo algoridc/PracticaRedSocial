@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import auxiliares.SendMail;
 import auxiliares.Utilidades;
 import modelo.Usuario;
+import modelo.WallSupport;
 import persistencia.DAOUsuario;
 
 //Es un servlet controlado por el Spring MVC, sustituto por ejemplo de Struts
@@ -95,6 +96,36 @@ public class UsuarioServlet {//eo
 			send.sendMail(user.getDireccion(), Utilidades.Desencriptar(user.getPwd()));
 			response.sendRedirect("index.html");
 	 }
+
+ }
+ @RequestMapping("wall.do")
+ public void wall(HttpServletRequest request,HttpServletResponse response) throws JSONException, Exception {
+	 
+	 final WallSupport soporte = WallSupport.getWallSupport();
+	 if(!soporte.isUser()) {
+		 //CARGAR EL  USUARIO
+		 
+	 }
+	 
+	 char value = request.getParameter("value").charAt(0);
+	 switch(value){
+	 case 'i':
+		 soporte.getUser();
+		 soporte.getPublicMesseges();
+		 break;
+	 case 'm':
+		 soporte.getPrivateMessages();
+		 break;
+	 case 'u':
+		 soporte.getUser();
+		 break;
+	 case 'c':
+		 soporte.getUser();
+		 break;
+		 
+	 }
+	 
+	 
 
  }
 }

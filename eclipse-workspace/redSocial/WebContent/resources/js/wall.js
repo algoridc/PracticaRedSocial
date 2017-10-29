@@ -1,5 +1,7 @@
 $( document ).ready(function() {
 	$(function() {
+		
+		//CONTROL DE ACCESO//////////////////////////////////////////////////////
 
 		var _name = sessionStorage.getItem("name");
 		var _email = sessionStorage.getItem("email");
@@ -10,9 +12,33 @@ $( document ).ready(function() {
 			alert("No ha iniciado sesion");
 			location.href ="index.html";
 		}
-		//$('#menuNombre').val();
+		
+		//DATOS DE USUARIO///////////////////////////////////////////////////////
 		document.getElementById("menuNombre").innerHTML = _name;
 		document.getElementById("infoUser").innerHTML = "Bienvenido "+_name+"!!";
+		
+		
+	});
+	$('#menuInicio').click(function(){
+		//ACCESO AL PANEL DE INICIO
+		$.post( "wall.do",{ value: "i" }, function( data ) {});
+		
+	});
+	$('#menuMensajes').click(function(){
+		//ACCESO AL PANEL DE MENSAJES
+		$.post( "wall.do",{ value: "m" }, function( data ) {});
+		
+	});
+	$('#menuNombre').click(function(){
+		//ACCESO AL PANEL DE USUARIO
+		$.post( "wall.do",{ value: "u" }, function( data ) {});
+		
+		
+	});
+	$('#menuConfiguracion').click(function(){
+		//ACCESO AL PANEL DE CONFIGURACION
+		$.post( "wall.do",{ value: "c" }, function( data ) {});
+		
 		
 	});
 	$('#logOut').click(function(){

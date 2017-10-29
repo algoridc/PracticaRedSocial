@@ -16,6 +16,7 @@ public class MongoBroker {
 	private MongoClient mongoClient;
 	private MongoDatabase db;
 	private MongoCollection<Document> usuarios;
+	private String _table = "";
 	
 	
 	private MongoBroker(){
@@ -31,6 +32,10 @@ public class MongoBroker {
 			yo=new MongoBroker();
 		}
 		return yo;
+	}
+	public void selectTable(String table) {
+		this._table = table;
+		
 	}
 	
 	public MongoCollection<Document> getCollection(String collection){

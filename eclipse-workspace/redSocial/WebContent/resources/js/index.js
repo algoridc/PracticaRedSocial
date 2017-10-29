@@ -1,5 +1,11 @@
 $( document ).ready(function() {
 	$(function() {
+		
+		//evitar posibles errores en la informacion guardada con anterioridad
+		sessionStorage.clear();
+		localStorage.clear();
+		
+		//function()
 
 	    $('#login-form-link').click(function(e) {
 	    	$("#login-form").delay(100).fadeIn(100);
@@ -104,6 +110,7 @@ $( document ).ready(function() {
 		$.post( "login.do",{ email: email, password: pwd}, function( data ) {
 			var json = JSON.parse(data);
 			if(json.status=='ok'){
+				
 				//GUARDAR EL NOMBRE Y EMAIL EN LOCALSTORAGE
 				//localStorage.setItem("name", json.name);
 				//localStorage.setItem("email", json.email);
